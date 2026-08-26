@@ -172,8 +172,9 @@
     </div>
 
     <div class="field" style="margin-top:14px">
-      <label>Tài khoản của bạn</label>
+      <label>Tài khoản của bạn <span style="font-weight:400;color:var(--muted)">(trình duyệt tự nhớ, khỏi cần đăng nhập lại mỗi lần)</span></label>
       <div class="mono" id="didBox">Chưa có — bấm "Tạo tài khoản" ở trên</div>
+      <button type="button" class="btn secondary" id="btnForget" style="display:none;margin-top:8px;font-size:12px">Quên tài khoản này trên trình duyệt</button>
     </div>
 
     <div id="seedWarning" class="note warn" style="display:none">
@@ -324,6 +325,17 @@
     mc[0] = 0xed; mc[1] = 0x01; mc.set(pubRaw, 2);
     return "did:key:z" + base58Encode(mc);
   }
+  var LOCAL_KEY = "btc_seed_v1";
+  function saveLocal(seedB64) {
+    try { localStorage.setItem(LOCAL_KEY, seedB64); } catch (e) { /* private mode etc — not fatal */ }
+  }
+  function loadLocal() {
+    try { return localStorage.getItem(LOCAL_KEY); } catch (e) { return null; }
+  }
+  function clearLocal() {
+    try { localStorage.removeItem(LOCAL_KEY); } catch (e) { /* ignore */ }
+  }
+
   async function generateIdentity() {
     var kp = await crypto.subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]);
     var pubRaw = new Uint8Array(await crypto.subtle.exportKey("raw", kp.publicKey));
@@ -331,6 +343,7 @@
     state.keyPair = kp;
     state.pkcs8Bytes = pkcs8;
     state.did = didFromPub(pubRaw);
+    saveLocal(bufToB64(pkcs8));
     return state.did;
   }
 
@@ -346,6 +359,7 @@
     state.keyPair = { privateKey: privateKey, publicKey: pubKey };
     state.pkcs8Bytes = pkcs8;
     state.did = didFromPub(pubRaw);
+    saveLocal(seedB64.trim());
     return state.did;
   }
 
@@ -368,7 +382,15 @@
     $("btnSend").disabled = !ready;
     $("btnLoadJobs").disabled = !ready;
     $("seedWarning").style.display = ready ? "block" : "none";
+    $("btnForget").style.display = ready ? "inline-flex" : "none";
   }
+
+  $("btnForget").addEventListener("click", function () {
+    if (!confirm("Xoá tài khoản này khỏi trình duyệt? Nếu chưa tải file lưu trữ, bạn sẽ mất luôn tài khoản.")) return;
+    clearLocal();
+    state.keyPair = null; state.did = null; state.pkcs8Bytes = null;
+    refreshDidUi();
+  });
 
   $("btnGen").addEventListener("click", async function () {
     if (!window.isSecureContext && location.protocol !== "file:") {
@@ -537,7 +559,13 @@
   $("prevBtn").addEventListener("click", function () { if (current > 1) showStep(current - 1); });
   $("nextBtn").addEventListener("click", function () { if (current < 4) showStep(current + 1); });
 
-  refreshDidUi();
+  (async function initFromLocal() {
+    var saved = loadLocal();
+    if (saved) {
+      try { await restoreIdentity(saved); } catch (e) { clearLocal(); }
+    }
+    refreshDidUi();
+  })();
 })();
 </script>
 </body>
