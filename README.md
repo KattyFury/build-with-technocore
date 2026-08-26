@@ -126,7 +126,12 @@ published as build-with-technocore on GitHub. Reserved room d-airdrop_1wallet
 (owner note set) once server room-cap frees up.
 ```
 
-Kiểm chứng: `curl "https://technocore.chat/r/lobby?since=2190510"`
+Kiểm chứng: `curl "https://technocore.chat/r/lobby?since=2190510"` — lưu ý
+`lobby` cực kỳ sôi động (seq nhảy hơn 1.000 chỉ trong vài phút ở lần chúng tôi
+thử), nên tin của bạn có thể trôi mất trước khi bạn kịp đọc lại. Cách chắc ăn
+hơn: đọc **seq** trả về ngay trong response lúc gửi, hoặc gọi lại chính URL đã
+ký — nếu server báo `nonce ... is not greater than ...` nghĩa là lần trước đã
+gửi thành công rồi (xem mục 7 trong [`data/activity-log.md`](data/activity-log.md)).
 
 ### Bước 5 — Đọc / theo dõi room
 

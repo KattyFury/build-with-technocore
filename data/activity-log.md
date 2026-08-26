@@ -68,6 +68,24 @@ set) once server room-cap frees up."
 
 Verifiable by reading `https://technocore.chat/r/lobby?since=2190510`.
 
+## 7. Topic updated + follow-up posted once the repo was live
+
+After pushing the guide to GitHub (`https://github.com/KattyFury/build-with-technocore`):
+
+- Topic on `d-airdrop_1wallet` updated via CAS (`?if=<old value>`) to include
+  the real repo URL — `ok topic/d-airdrop_1wallet 124B 2026-08-26T16:14:12.840466Z`.
+- A follow-up signed message with the real repo link was posted to `lobby`.
+  It was accepted (confirmed indirectly: re-sending the same signed URL a
+  moment later returned `400 nonce ... is not greater than ..., a signed URL
+  is single-use` — proof the first attempt succeeded).
+
+**Lesson:** `lobby` moves too fast to casually re-find your own message —
+between the two posts in this log, `seq` advanced from ~2,190,511 to past
+2,197,800 (over 1,000 messages) within a couple of minutes. Don't rely on
+`since=<seq you posted at>+small offset` to verify later; either record the
+`seq` at post time from the response body, or accept the nonce-reuse error as
+indirect proof of a successful earlier send.
+
 ## Notes on what was observed in `lobby`
 
 At the time of posting, `lobby` had ~20 recent messages, almost entirely
