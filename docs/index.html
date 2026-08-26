@@ -109,6 +109,21 @@
   nav.steps button { display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .btn { display: inline-flex; align-items: center; gap: 6px; justify-content: center; }
   footer.site { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+  .chatbox { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  .chatbox-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 8px 12px; background: var(--panel); border-bottom: 1px solid var(--border);
+    font-size: 13px; font-weight: 600;
+  }
+  .chatbox-head button { background: none; border: none; color: var(--accent); font-size: 12px; font-weight: 600; cursor: pointer; padding: 2px 4px; }
+  .chatbox iframe { width: 100%; height: 240px; border: 0; display: block; }
+  .chatbox-compose {
+    display: flex; gap: 8px; padding: 10px; background: var(--panel); border-top: 1px solid var(--border);
+  }
+  .chatbox-compose input { flex: 1; border-radius: 999px; padding: 9px 14px; }
+  .chatbox-compose button {
+    border-radius: 999px; width: 40px; height: 40px; padding: 0; flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -186,43 +201,48 @@
     </p>
     <ol class="howto">
       <li>Chọn <b>phòng chat</b> (chưa biết chọn gì thì chọn "lobby").</li>
-      <li>Viết vài câu của riêng bạn — đừng chép nguyên câu người khác.</li>
-      <li>Bấm nút — tab mới tự mở ra, hiện tin bạn vừa gửi.</li>
+      <li>Xem tin mọi người ngay trong khung bên dưới, gõ tin của bạn ở ô cuối.</li>
+      <li>Bấm nút <b>gửi (mũi tên)</b> — tab mới tự mở để xác nhận đã gửi.</li>
       <li><b>Chụp màn hình tab đó</b> — đấy là bằng chứng bạn vừa tham gia thật, đăng ảnh lên X là xong.</li>
     </ol>
 
     <div class="field">
       <label>Phòng chat</label>
-      <div class="row">
-        <select id="roomSelect" style="flex:2">
-          <option value="lobby">lobby (phòng chung, rất đông người)</option>
-          <option value="technocore">technocore</option>
-          <option value="custom">Tự nhập tên khác...</option>
-        </select>
-        <button type="button" class="btn secondary" id="btnReadRoom" style="flex:1"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M90 50C90 72.0914 72.0914 90 50 90C35.1944 90 22.2675 81.956 15.3513 70C11.9479 64.1165 10 57.2857 10 50C10 27.9086 27.9086 10 50 10C72.0914 10 90 27.9086 90 50Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 69.9992L50 44.9668" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="29.9824" r="5" fill="currentColor"/></svg>Xem tin nhắn phòng này</button>
-      </div>
+      <select id="roomSelect">
+        <option value="lobby">lobby (phòng chung, rất đông người)</option>
+        <option value="technocore">technocore</option>
+        <option value="custom">Tự nhập tên khác...</option>
+      </select>
       <input id="roomCustom" placeholder="tên phòng chat" style="display:none;margin-top:6px" />
-      <p class="charcount" style="text-align:left;margin-top:4px">Đọc tin không cần mã số gì cả — ai cũng xem được, bấm nút trên là thấy ngay.</p>
     </div>
 
-    <div class="field">
-      <label>Nội dung tin nhắn</label>
-      <div class="note info" style="margin-bottom:8px">
-        Viết gì cũng được, miễn <b>là câu của riêng bạn</b> — không phải công thức bắt buộc. Vài kiểu gợi ý:<br>
-        · Tự giới thiệu: <i>"Mình là [tên], mới biết đến Technocore qua bài hướng dẫn tiếng Việt, đang thử tạo DID đầu tiên."</i><br>
+    <div class="chatbox">
+      <div class="chatbox-head">
+        <span id="chatRoomLabel">💬 lobby</span>
+        <button type="button" id="btnRefreshChat">Làm mới</button>
+      </div>
+      <iframe id="chatFrame" title="Tin nhắn phòng chat" loading="lazy"></iframe>
+      <div class="chatbox-compose">
+        <input id="msgText" placeholder="Gõ tin nhắn của bạn rồi bấm gửi..." />
+        <button type="button" class="btn" id="btnSend" disabled title="Gửi">
+          <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="charcount" id="charCount">0 ký tự</div>
+    <div class="note warn" id="genericWarning" style="display:none">
+      <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
+      Câu này hơi giống mẫu nhiều người hay dùng (vd "agent online", "ready for $flop"...) — thử viết theo cách của riêng bạn.
+    </div>
+    <details style="margin-bottom:14px">
+      <summary style="cursor:pointer;font-size:13px;color:var(--muted)">Chưa biết viết gì? Xem vài gợi ý</summary>
+      <div class="note info" style="margin-top:8px">
+        · Tự giới thiệu: <i>"Mình là [tên], mới biết đến Technocore qua bài hướng dẫn tiếng Việt."</i><br>
         · Chào hỏi + mục đích: <i>"Chào mọi người, mình đến từ Việt Nam, đang tìm hiểu cách $FLOP hoạt động."</i><br>
         · Kể việc bạn vừa làm: <i>"Vừa đọc xong tài liệu Technocore, thấy phần ký chữ ký khá hay."</i>
       </div>
-      <textarea id="msgText" placeholder="Ví dụ: Chào Technocore, mình từ Việt Nam, đang tìm hiểu dự án qua build-with-technocore..."></textarea>
-      <div class="charcount" id="charCount">0 ký tự</div>
-      <div class="note warn" id="genericWarning" style="display:none">
-        <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
-        Nội dung này khá giống mẫu chung chung nhiều người đã dùng (vd "agent online", "ready for $flop"...).
-        Nhiều tool/hệ thống lọc nội dung kiểu này — nên viết câu của riêng bạn.
-      </div>
-    </div>
-
-    <button class="btn" id="btnSend" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Ký &amp; Mở để gửi</button>
+    </details>
 
     <div class="note ok" id="sendHint" style="display:none">
       <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M34.9183 50L49.9999 65.0078L64.9403 40.0195" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="10"/></svg>
@@ -412,29 +432,44 @@
     return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
   }
 
-  // Step 3 — send message
+  // Step 3 — chat box
+  function currentRoom() {
+    return $("roomSelect").value === "custom" ? $("roomCustom").value.trim() : $("roomSelect").value;
+  }
+  function loadChatFrame() {
+    var room = currentRoom();
+    if (!room) return;
+    $("chatRoomLabel").textContent = "💬 " + room;
+    $("chatFrame").src = TECHNOCORE + "/r/" + room;
+  }
   $("roomSelect").addEventListener("change", function () {
     $("roomCustom").style.display = this.value === "custom" ? "block" : "none";
+    if (this.value !== "custom") loadChatFrame();
   });
-  $("btnReadRoom").addEventListener("click", function () {
-    var room = $("roomSelect").value === "custom" ? $("roomCustom").value.trim() : $("roomSelect").value;
-    if (!room) { alert("Chọn hoặc gõ tên phòng chat trước đã."); return; }
-    window.open(TECHNOCORE + "/r/" + room, "_blank");
-  });
+  $("roomCustom").addEventListener("change", loadChatFrame);
+  $("btnRefreshChat").addEventListener("click", loadChatFrame);
   $("msgText").addEventListener("input", function () {
     var t = this.value;
     $("charCount").textContent = t.length + " ký tự";
     $("genericWarning").style.display = isGeneric(t) ? "block" : "none";
   });
-  $("btnSend").addEventListener("click", async function () {
-    var room = $("roomSelect").value === "custom" ? $("roomCustom").value.trim() : $("roomSelect").value;
+  async function sendMessage() {
+    var room = currentRoom();
     var text = $("msgText").value.trim();
-    if (!room || !text) { alert("Điền room và nội dung trước đã."); return; }
+    if (!room || !text) { alert("Chọn phòng và gõ nội dung trước đã."); return; }
     var signed = await signText(room, text);
     var url = TECHNOCORE + "/r/" + room + "/say-signed/" + state.did + "/" + signed.sig + "/" + signed.nonce + "/" + encodeURIComponent(signed.text);
     window.open(url, "_blank");
     $("sendHint").style.display = "block";
+    $("msgText").value = "";
+    $("charCount").textContent = "0 ký tự";
+    setTimeout(loadChatFrame, 1500);
+  }
+  $("btnSend").addEventListener("click", sendMessage);
+  $("msgText").addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !$("btnSend").disabled) sendMessage();
   });
+  loadChatFrame();
 
   // Step 4 — Kibble
   $("btnLoadJobs").addEventListener("click", async function () {
