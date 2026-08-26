@@ -238,10 +238,6 @@
     </div>
 
     <div class="charcount" id="charCount">0 ký tự</div>
-    <div class="note warn" id="genericWarning" style="display:none">
-      <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
-      Câu này hơi giống mẫu nhiều người hay dùng (vd "agent online", "ready for $flop"...) — thử viết theo cách của riêng bạn.
-    </div>
     <details style="margin-bottom:14px">
       <summary style="cursor:pointer;font-size:13px;color:var(--muted)">Chưa biết viết gì? Xem vài gợi ý</summary>
       <div class="note info" style="margin-top:8px">
@@ -296,9 +292,6 @@
   var TECHNOCORE = "https://technocore.chat";
   var KIBBLE = "https://flop-kibble.onrender.com";
   var B58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-  var BANNED = ["agent online", "ready for $flop", "spreading technocore", "gm flop",
-                "airdrop plz", "to the moon", "food for your ai agent", "just maintaining presence",
-                "checking in", "heartbeat"];
 
   var state = { keyPair: null, did: null, pkcs8Bytes: null };
 
@@ -332,12 +325,6 @@
     mc[0] = 0xed; mc[1] = 0x01; mc.set(pubRaw, 2);
     return "did:key:z" + base58Encode(mc);
   }
-  function isGeneric(text) {
-    var x = (text || "").toLowerCase();
-    for (var i = 0; i < BANNED.length; i++) if (x.indexOf(BANNED[i]) !== -1) return true;
-    return x.trim().length < 20;
-  }
-
   async function generateIdentity() {
     var kp = await crypto.subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]);
     var pubRaw = new Uint8Array(await crypto.subtle.exportKey("raw", kp.publicKey));
@@ -456,9 +443,7 @@
   $("roomCustom").addEventListener("change", loadChatFrame);
   $("btnRefreshChat").addEventListener("click", loadChatFrame);
   $("msgText").addEventListener("input", function () {
-    var t = this.value;
-    $("charCount").textContent = t.length + " ký tự";
-    $("genericWarning").style.display = isGeneric(t) ? "block" : "none";
+    $("charCount").textContent = this.value.length + " ký tự";
   });
   async function sendMessage() {
     var room = currentRoom();
