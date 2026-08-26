@@ -115,87 +115,94 @@
 <div class="wrap">
   <header>
     <h1><svg class="icon-lg" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> build-with-technocore</h1>
-    <p class="sub">Công cụ 1 trang, chạy hoàn toàn trong trình duyệt — không server, không CDN ngoài, private key không rời máy bạn.</p>
-    <span class="badge"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> Local-only · không lưu gì lên đâu cả</span>
+    <p class="sub">Trang này giúp bạn tự tạo 1 "mã số bí mật" và dùng nó để tham gia Technocore — không cần cài gì cả.</p>
+    <span class="badge"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> An toàn — mọi thứ chỉ nằm trên máy bạn, không gửi đi đâu hết</span>
   </header>
 
   <nav class="steps" id="stepNav">
-    <button data-step="1" class="active"><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>1. Danh tính</button>
-    <button data-step="2"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>2. Hồ sơ DID</button>
+    <button data-step="1" class="active"><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>1. Tạo mã số</button>
+    <button data-step="2"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>2. Giới thiệu</button>
     <button data-step="3"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>3. Gửi tin</button>
-    <button data-step="4"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M40 10H10V40H40V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 10H60V40H90V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 60H60V90H90V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M40 60H10V90H40V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/></svg>4. Kibble</button>
+    <button data-step="4"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M40 10H10V40H40V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 10H60V40H90V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 60H60V90H90V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M40 60H10V90H40V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/></svg>4. Chấm bài</button>
   </nav>
 
   <!-- STEP 1: IDENTITY -->
   <section class="step active" id="step1">
-    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 1 — Tạo hoặc khôi phục DID key</h2>
-    <p class="desc">Ed25519 sinh ngay trong trình duyệt bằng Web Crypto API. Không gửi đi đâu cả.</p>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 1 — Tạo 1 mã số bí mật cho riêng bạn</h2>
+    <p class="desc">Giống như tạo 1 mật khẩu siêu dài mà chỉ mình bạn có — mã này giúp mọi người biết "đúng là bạn" mỗi khi bạn làm gì trên Technocore.</p>
     <ol class="howto">
-      <li>Bấm <b>"Tạo DID mới"</b> — trình duyệt tự tạo 1 cặp khóa riêng cho bạn.</li>
-      <li>Bấm <b>"Tải seed (.txt)"</b>, lưu file này thật cẩn thận — đây là chìa khóa duy nhất, mất là mất luôn danh tính.</li>
-      <li>Xong bước 1 — DID hiện ra ở ô bên dưới, sang Bước 2.</li>
+      <li>Bấm <b>"Tạo mã mới"</b> — máy tự tạo mã cho bạn, chỉ mất 1 giây.</li>
+      <li>Bấm <b>"Tải file lưu trữ"</b> và cất file đó thật kỹ (giống cất chìa khóa nhà) — mất file này là mất luôn, không lấy lại được.</li>
+      <li>Xong! Mã số của bạn hiện ra ở ô bên dưới, sang Bước 2.</li>
     </ol>
 
     <div class="row">
-      <button class="btn" id="btnGen">Tạo DID mới</button>
-      <button class="btn secondary" id="btnDownloadSeed" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50V90H90V50M50 70V10M30 50L50 70L70 50" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Tải seed (.txt)</button>
+      <button class="btn" id="btnGen">Tạo mã mới</button>
+      <button class="btn secondary" id="btnDownloadSeed" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50V90H90V50M50 70V10M30 50L50 70L70 50" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Tải file lưu trữ (.txt)</button>
     </div>
 
     <div class="field" style="margin-top:14px">
-      <label>Hoặc khôi phục từ seed đã lưu (dán nội dung file .txt)</label>
+      <label>Đã có file lưu trước đó? Dán nội dung vào đây để dùng lại</label>
       <div class="row">
-        <input id="restoreInput" placeholder="Seed base64 (pkcs8)..." />
-        <button class="btn secondary" id="btnRestore">Khôi phục</button>
+        <input id="restoreInput" placeholder="Dán nội dung file đã tải..." />
+        <button class="btn secondary" id="btnRestore">Dùng lại mã cũ</button>
       </div>
     </div>
 
     <div class="field" style="margin-top:14px">
-      <label>DID hiện tại</label>
-      <div class="mono" id="didBox">Chưa có DID — bấm "Tạo DID mới"</div>
+      <label>Mã số của bạn</label>
+      <div class="mono" id="didBox">Chưa có — bấm "Tạo mã mới" ở trên</div>
     </div>
 
     <div id="seedWarning" class="note warn" style="display:none">
       <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
-      <b>Tải seed về ngay và cất chỗ an toàn.</b> Mất seed = mất luôn danh tính này. Lộ seed = người khác giả danh được bạn. Không paste seed vào chat/AI/nơi lạ.
+      <b>Nhớ tải file về và cất kỹ!</b> Mất file = mất luôn mã số này, không ai giúp lấy lại được. Cho người khác thấy nội dung file này = họ giả làm bạn được. Đừng dán nội dung file vào chat với ai, kể cả AI.
     </div>
   </section>
 
   <!-- STEP 2: DID NOTE -->
   <section class="step" id="step2">
-    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 2 — Công bố hồ sơ DID</h2>
-    <p class="desc">Ghi 1 note công khai để người khác biết bạn là ai.</p>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 2 — Giới thiệu bản thân</h2>
+    <p class="desc">Viết vài dòng để người khác biết bạn là ai — giống phần "giới thiệu" trên Facebook/Zalo vậy.</p>
     <ol class="howto">
-      <li>(Tuỳ chọn) Sửa nội dung hồ sơ bên dưới theo ý bạn.</li>
-      <li>Bấm <b>"Ký &amp; Mở để công bố"</b> — 1 tab mới tự mở ra để gửi (không cần copy/dán tay).</li>
-      <li>Tab đó hiện dòng <code>ok ...</code> là xong, quay lại đây sang Bước 3.</li>
+      <li>(Không bắt buộc) Sửa nội dung giới thiệu bên dưới theo ý bạn.</li>
+      <li>Bấm nút — 1 tab mới tự mở ra để đăng, bạn không cần làm gì thêm.</li>
+      <li>Tab đó hiện chữ <code>ok</code> là xong, quay lại đây sang Bước 3.</li>
     </ol>
     <div class="field">
-      <label>Nội dung hồ sơ</label>
-      <textarea id="profileText" placeholder="purpose: ... room: ... mailbox: ...">lang: vi. purpose: tham gia Technocore qua build-with-technocore.</textarea>
+      <label>Giới thiệu về bạn</label>
+      <textarea id="profileText" placeholder="Ví dụ: mình đến từ Việt Nam, đang tìm hiểu Technocore...">lang: vi. purpose: tham gia Technocore qua build-with-technocore.</textarea>
     </div>
-    <button class="btn" id="btnPublishNote" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Ký &amp; Mở để công bố</button>
+    <button class="btn" id="btnPublishNote" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Đăng giới thiệu</button>
     <div class="note info" id="noteInfo" style="display:none"></div>
   </section>
 
   <!-- STEP 3: SEND MESSAGE -->
   <section class="step" id="step3">
-    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 3 — Ký &amp; gửi tin nhắn</h2>
-    <p class="desc">Chọn room, viết nội dung thật, gửi công khai lên Technocore.</p>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 3 — Gửi 1 tin nhắn công khai <span style="font-size:11px;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:2px 6px;margin-left:4px">BƯỚC CHÍNH</span></h2>
+    <p class="desc">
+      Đây mới là việc quan trọng nhất — mọi bước khác chỉ là phụ. Thích thì lâu lâu ghé vào,
+      viết 1 câu là đủ, giống nhắn tin vào 1 nhóm chung vậy.
+    </p>
     <ol class="howto">
-      <li>Chọn <b>room</b> (khuyên chọn "lobby" nếu chưa biết chọn gì).</li>
-      <li>Viết <b>nội dung thật của bạn</b> — đừng copy nguyên câu người khác.</li>
-      <li>Bấm <b>"Ký &amp; Mở để gửi"</b> — tab mới tự mở, hiện tin bạn vừa gửi.</li>
-      <li>Nhớ số trong <code>[ ]</code> ở tab đó (sequence) để khoe lên X.</li>
+      <li>Chọn <b>phòng chat</b> (chưa biết chọn gì thì chọn "lobby").</li>
+      <li>Viết vài câu của riêng bạn — đừng chép nguyên câu người khác.</li>
+      <li>Bấm nút — tab mới tự mở ra, hiện tin bạn vừa gửi.</li>
+      <li><b>Chụp màn hình tab đó</b> — đấy là bằng chứng bạn vừa tham gia thật, đăng ảnh lên X là xong.</li>
     </ol>
 
     <div class="field">
-      <label>Room</label>
-      <select id="roomSelect">
-        <option value="lobby">lobby (chung, rất đông)</option>
-        <option value="technocore">technocore</option>
-        <option value="custom">Tự nhập...</option>
-      </select>
-      <input id="roomCustom" placeholder="tên room" style="display:none;margin-top:6px" />
+      <label>Phòng chat</label>
+      <div class="row">
+        <select id="roomSelect" style="flex:2">
+          <option value="lobby">lobby (phòng chung, rất đông người)</option>
+          <option value="technocore">technocore</option>
+          <option value="custom">Tự nhập tên khác...</option>
+        </select>
+        <button type="button" class="btn secondary" id="btnReadRoom" style="flex:1"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M90 50C90 72.0914 72.0914 90 50 90C35.1944 90 22.2675 81.956 15.3513 70C11.9479 64.1165 10 57.2857 10 50C10 27.9086 27.9086 10 50 10C72.0914 10 90 27.9086 90 50Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 69.9992L50 44.9668" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="29.9824" r="5" fill="currentColor"/></svg>Xem tin nhắn phòng này</button>
+      </div>
+      <input id="roomCustom" placeholder="tên phòng chat" style="display:none;margin-top:6px" />
+      <p class="charcount" style="text-align:left;margin-top:4px">Đọc tin không cần mã số gì cả — ai cũng xem được, bấm nút trên là thấy ngay.</p>
     </div>
 
     <div class="field">
@@ -408,6 +415,11 @@
   // Step 3 — send message
   $("roomSelect").addEventListener("change", function () {
     $("roomCustom").style.display = this.value === "custom" ? "block" : "none";
+  });
+  $("btnReadRoom").addEventListener("click", function () {
+    var room = $("roomSelect").value === "custom" ? $("roomCustom").value.trim() : $("roomSelect").value;
+    if (!room) { alert("Chọn hoặc gõ tên phòng chat trước đã."); return; }
+    window.open(TECHNOCORE + "/r/" + room, "_blank");
   });
   $("msgText").addEventListener("input", function () {
     var t = this.value;
