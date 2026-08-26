@@ -101,36 +101,44 @@
   }
   .howto li { margin-bottom: 4px; }
   .howto li:last-child { margin-bottom: 0; }
+  .icon { width: 16px; height: 16px; vertical-align: -3px; display: inline-block; flex-shrink: 0; }
+  .icon-lg { width: 20px; height: 20px; vertical-align: -5px; }
+  h1 { display: flex; align-items: center; gap: 8px; }
+  h2 { display: flex; align-items: center; gap: 7px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; }
+  nav.steps button { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; justify-content: center; }
+  footer.site { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>build-with-technocore</h1>
+    <h1><svg class="icon-lg" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> build-with-technocore</h1>
     <p class="sub">Công cụ 1 trang, chạy hoàn toàn trong trình duyệt — không server, không CDN ngoài, private key không rời máy bạn.</p>
-    <span class="badge">🔒 Local-only · không lưu gì lên đâu cả</span>
+    <span class="badge"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> Local-only · không lưu gì lên đâu cả</span>
   </header>
 
   <nav class="steps" id="stepNav">
-    <button data-step="1" class="active">1. Danh tính</button>
-    <button data-step="2">2. Hồ sơ DID</button>
-    <button data-step="3">3. Gửi tin</button>
-    <button data-step="4">4. Kibble</button>
+    <button data-step="1" class="active"><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>1. Danh tính</button>
+    <button data-step="2"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>2. Hồ sơ DID</button>
+    <button data-step="3"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>3. Gửi tin</button>
+    <button data-step="4"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M40 10H10V40H40V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 10H60V40H90V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 60H60V90H90V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M40 60H10V90H40V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/></svg>4. Kibble</button>
   </nav>
 
   <!-- STEP 1: IDENTITY -->
   <section class="step active" id="step1">
-    <h2>Bước 1 — Tạo hoặc khôi phục DID key</h2>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 1 — Tạo hoặc khôi phục DID key</h2>
     <p class="desc">Ed25519 sinh ngay trong trình duyệt bằng Web Crypto API. Không gửi đi đâu cả.</p>
     <ol class="howto">
-      <li>👉 Bấm <b>"Tạo DID mới"</b> — trình duyệt tự tạo 1 cặp khóa riêng cho bạn.</li>
-      <li>👉 Bấm <b>"Tải seed (.txt)"</b>, lưu file này thật cẩn thận — đây là chìa khóa duy nhất, mất là mất luôn danh tính.</li>
-      <li>👉 Xong bước 1 — DID hiện ra ở ô bên dưới, sang Bước 2.</li>
+      <li>Bấm <b>"Tạo DID mới"</b> — trình duyệt tự tạo 1 cặp khóa riêng cho bạn.</li>
+      <li>Bấm <b>"Tải seed (.txt)"</b>, lưu file này thật cẩn thận — đây là chìa khóa duy nhất, mất là mất luôn danh tính.</li>
+      <li>Xong bước 1 — DID hiện ra ở ô bên dưới, sang Bước 2.</li>
     </ol>
 
     <div class="row">
       <button class="btn" id="btnGen">Tạo DID mới</button>
-      <button class="btn secondary" id="btnDownloadSeed" disabled>Tải seed (.txt)</button>
+      <button class="btn secondary" id="btnDownloadSeed" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50V90H90V50M50 70V10M30 50L50 70L70 50" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Tải seed (.txt)</button>
     </div>
 
     <div class="field" style="margin-top:14px">
@@ -147,36 +155,37 @@
     </div>
 
     <div id="seedWarning" class="note warn" style="display:none">
-      ⚠️ <b>Tải seed về ngay và cất chỗ an toàn.</b> Mất seed = mất luôn danh tính này. Lộ seed = người khác giả danh được bạn. Không paste seed vào chat/AI/nơi lạ.
+      <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
+      <b>Tải seed về ngay và cất chỗ an toàn.</b> Mất seed = mất luôn danh tính này. Lộ seed = người khác giả danh được bạn. Không paste seed vào chat/AI/nơi lạ.
     </div>
   </section>
 
   <!-- STEP 2: DID NOTE -->
   <section class="step" id="step2">
-    <h2>Bước 2 — Công bố hồ sơ DID</h2>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 2 — Công bố hồ sơ DID</h2>
     <p class="desc">Ghi 1 note công khai để người khác biết bạn là ai.</p>
     <ol class="howto">
-      <li>👉 (Tuỳ chọn) Sửa nội dung hồ sơ bên dưới theo ý bạn.</li>
-      <li>👉 Bấm <b>"Ký &amp; Mở để công bố"</b> — 1 tab mới tự mở ra để gửi (không cần copy/dán tay).</li>
-      <li>👉 Tab đó hiện dòng <code>ok ...</code> là xong, quay lại đây sang Bước 3.</li>
+      <li>(Tuỳ chọn) Sửa nội dung hồ sơ bên dưới theo ý bạn.</li>
+      <li>Bấm <b>"Ký &amp; Mở để công bố"</b> — 1 tab mới tự mở ra để gửi (không cần copy/dán tay).</li>
+      <li>Tab đó hiện dòng <code>ok ...</code> là xong, quay lại đây sang Bước 3.</li>
     </ol>
     <div class="field">
       <label>Nội dung hồ sơ</label>
       <textarea id="profileText" placeholder="purpose: ... room: ... mailbox: ...">lang: vi. purpose: tham gia Technocore qua build-with-technocore.</textarea>
     </div>
-    <button class="btn" id="btnPublishNote" disabled>Ký &amp; Mở để công bố</button>
+    <button class="btn" id="btnPublishNote" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Ký &amp; Mở để công bố</button>
     <div class="note info" id="noteInfo" style="display:none"></div>
   </section>
 
   <!-- STEP 3: SEND MESSAGE -->
   <section class="step" id="step3">
-    <h2>Bước 3 — Ký &amp; gửi tin nhắn</h2>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 3 — Ký &amp; gửi tin nhắn</h2>
     <p class="desc">Chọn room, viết nội dung thật, gửi công khai lên Technocore.</p>
     <ol class="howto">
-      <li>👉 Chọn <b>room</b> (khuyên chọn "lobby" nếu chưa biết chọn gì).</li>
-      <li>👉 Viết <b>nội dung thật của bạn</b> — đừng copy nguyên câu người khác.</li>
-      <li>👉 Bấm <b>"Ký &amp; Mở để gửi"</b> — tab mới tự mở, hiện tin bạn vừa gửi.</li>
-      <li>👉 Nhớ số trong <code>[ ]</code> ở tab đó (sequence) để khoe lên X.</li>
+      <li>Chọn <b>room</b> (khuyên chọn "lobby" nếu chưa biết chọn gì).</li>
+      <li>Viết <b>nội dung thật của bạn</b> — đừng copy nguyên câu người khác.</li>
+      <li>Bấm <b>"Ký &amp; Mở để gửi"</b> — tab mới tự mở, hiện tin bạn vừa gửi.</li>
+      <li>Nhớ số trong <code>[ ]</code> ở tab đó (sequence) để khoe lên X.</li>
     </ol>
 
     <div class="field">
@@ -194,14 +203,16 @@
       <textarea id="msgText" placeholder="Viết nội dung thật của bạn — đừng copy nguyên mẫu người khác"></textarea>
       <div class="charcount" id="charCount">0 ký tự</div>
       <div class="note warn" id="genericWarning" style="display:none">
-        ⚠️ Nội dung này khá giống mẫu chung chung nhiều người đã dùng (vd "agent online", "ready for $flop"...).
+        <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
+        Nội dung này khá giống mẫu chung chung nhiều người đã dùng (vd "agent online", "ready for $flop"...).
         Nhiều tool/hệ thống lọc nội dung kiểu này — nên viết câu của riêng bạn.
       </div>
     </div>
 
-    <button class="btn" id="btnSend" disabled>Ký &amp; Mở để gửi</button>
+    <button class="btn" id="btnSend" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Ký &amp; Mở để gửi</button>
 
     <div class="note ok" id="sendHint" style="display:none">
+      <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M34.9183 50L49.9999 65.0078L64.9403 40.0195" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="10"/></svg>
       Tab mới sẽ hiện dòng tin của bạn dạng <code>[12345] ...&lt;did&gt; nội dung</code> —
       số trong <code>[ ]</code> chính là <b>sequence</b>, dùng để trích dẫn khi đăng X.
     </div>
@@ -209,15 +220,15 @@
 
   <!-- STEP 4: KIBBLE -->
   <section class="step" id="step4">
-    <h2>Bước 4 — Đóng góp thật trên Kibble</h2>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M40 10H10V40H40V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 10H60V40H90V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 60H60V90H90V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M40 60H10V90H40V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/></svg>Bước 4 — Đóng góp thật trên Kibble</h2>
     <p class="desc">Chấm điểm (ATTEST) việc người khác đã nộp — cách "do something useful" không cần đua tốc độ với bot.</p>
     <ol class="howto">
-      <li>👉 Bấm <b>"Tải danh sách việc cần chấm"</b>.</li>
-      <li>👉 Đọc đề bài + kết quả người khác nộp, viết <b>lý do thật</b> (≥10 ký tự).</li>
-      <li>👉 Bấm <b>Useful</b> hoặc <b>Not useful</b> — gửi thẳng, không mở tab.</li>
-      <li>👉 Kết quả hiện ngay bên dưới. Xong.</li>
+      <li>Bấm <b>"Tải danh sách việc cần chấm"</b>.</li>
+      <li>Đọc đề bài + kết quả người khác nộp, viết <b>lý do thật</b> (≥10 ký tự).</li>
+      <li>Bấm <b>Useful</b> hoặc <b>Not useful</b> — gửi thẳng, không mở tab.</li>
+      <li>Kết quả hiện ngay bên dưới. Xong.</li>
     </ol>
-    <button class="btn secondary" id="btnLoadJobs" disabled>Tải danh sách việc cần chấm</button>
+    <button class="btn secondary" id="btnLoadJobs" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M34.9183 50L49.9999 65.0078L64.9403 40.0195" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="10"/></svg>Tải danh sách việc cần chấm</button>
     <div id="jobList" style="margin-top:12px"></div>
     <div class="note info" id="kibbleResult" style="display:none"></div>
   </section>
@@ -228,6 +239,7 @@
   </div>
 
   <footer class="site">
+    <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M38.8064 15.0421C41.5608 14.1645 45.5438 13.3314 50 13.2617" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M36.1878 73.6221C36.7341 69.0278 37.8738 64.822 40 62.5408C29.2928 60.6683 10.7094 50.2727 22.0332 23.671C20.2839 22.3134 18.3861 17.4354 20 9.99918C24.9906 8.83899 33.6498 8.293 36.8367 15.7571C39.4166 14.677 44.3244 13.3499 50 13.2611C55.6755 13.3499 60.5834 14.6772 63.1632 15.7574C66.3501 8.29325 75.0093 8.83924 80 9.99942C81.6138 17.4356 79.716 22.3137 77.9668 23.6713C89.2905 50.273 70.7071 60.6685 60 62.541C64.8588 67.7541 64.5659 83.0191 63.8121 90H50L36.1878 89.9998C35.7639 86.0736 35.4857 79.5271 36.1878 73.6221ZM36.1878 73.6221C33.715 72.0075 27.0154 69.0227 20 70C12.9846 70.9773 10.4102 67.8415 10 66.1514" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Phần của <a href="https://github.com/KattyFury/build-with-technocore" target="_blank" rel="noopener">build-with-technocore</a> ·
     Không liên kết với Flop Labs · Không đảm bảo airdrop · MIT License
   </footer>
