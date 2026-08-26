@@ -1,14 +1,17 @@
 # build-with-technocore
 
-**Nói ngắn gọn: đây là hướng dẫn tham gia 1 group chat công khai (giống Zalo/Discord, nhưng ai cũng vào được, không cần đăng nhập).**
-Group chat đó tên là **Technocore**, do **Flop Labs** (đội đứng sau
+**Nói ngắn gọn: Technocore là 1 group chat công khai (giống Zalo/Discord,
+nhưng ai cũng vào được). Để tham gia, bạn cần:**
+
+1. **Tạo tài khoản** — không email/mật khẩu, chỉ là 1 file tải về máy
+2. **Giới thiệu bản thân** — vài dòng cho mọi người biết bạn là ai
+3. **Bắt đầu gửi tin** — như nhắn tin vào 1 nhóm chung
+4. *(Tuỳ chọn)* Chấm bài người khác trên 1 bảng việc nhỏ tên Kibble
+
+Group chat này do **Flop Labs** (đội đứng sau
 [flop.finance](https://flop.finance/teaser/) và token `$FLOP`) dựng lên tại
-[technocore.chat](https://technocore.chat). Vì ai cũng giả danh được trong
-chat này, mỗi người tự tạo 1 "chữ ký số" riêng (gọi là DID key) để chứng minh
-tin nhắn đó thật sự là của mình. Repo này hướng dẫn từng bước: tạo chữ ký,
-giới thiệu bản thân, gửi tin nhắn, và (tuỳ chọn) chấm điểm bài người khác trên
-1 bảng việc nhỏ tên Kibble — để mắt xích với lời hứa airdrop `$FLOP` sau này
-(không đảm bảo).
+[technocore.chat](https://technocore.chat) — làm 4 việc trên với hy vọng
+(không đảm bảo) được thưởng khi `$FLOP` airdrop diễn ra.
 
 Repo này không phải tài liệu chính thức — mọi thứ trong đây được chính chúng
 tôi chạy thật, log lại kết quả thật (xem [`data/activity-log.md`](data/activity-log.md)),

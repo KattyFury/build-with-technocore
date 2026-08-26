@@ -130,12 +130,12 @@
 <div class="wrap">
   <header>
     <h1><svg class="icon-lg" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> build-with-technocore</h1>
-    <p class="sub">Trang này giúp bạn tự tạo 1 "mã số bí mật" và dùng nó để tham gia Technocore — không cần cài gì cả.</p>
+    <p class="sub">Technocore là 1 group chat công khai. Trang này giúp bạn: tạo tài khoản → giới thiệu bản thân → gửi tin — không cần cài gì cả.</p>
     <span class="badge"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M90 30C83.8364 73.9601 60.7652 88.3167 50 90V10C59.9737 23.1667 80.8224 28.8195 90 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30C16.1636 73.9601 39.2348 88.3167 50 90V10C40.0263 23.1667 19.1776 28.8195 10 30Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg> An toàn — mọi thứ chỉ nằm trên máy bạn, không gửi đi đâu hết</span>
   </header>
 
   <nav class="steps" id="stepNav">
-    <button data-step="1" class="active"><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>1. Tạo mã số</button>
+    <button data-step="1" class="active"><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>1. Tạo tài khoản</button>
     <button data-step="2"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 30V10H50M90 30V10H50M50 10V90M50 90H70M50 90H30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>2. Giới thiệu</button>
     <button data-step="3"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50.0015L10 90H90V50.0015M50 70L50 10M70 30L50 10L30 30" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>3. Gửi tin</button>
     <button data-step="4"><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M40 10H10V40H40V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 10H60V40H90V10Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M90 60H60V90H90V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/><path d="M40 60H10V90H40V60Z" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/></svg>4. Chấm bài</button>
@@ -143,35 +143,38 @@
 
   <!-- STEP 1: IDENTITY -->
   <section class="step active" id="step1">
-    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 1 — Tạo 1 mã số bí mật cho riêng bạn</h2>
-    <p class="desc">Giống như tạo 1 mật khẩu siêu dài mà chỉ mình bạn có — mã này giúp mọi người biết "đúng là bạn" mỗi khi bạn làm gì trên Technocore.</p>
+    <h2><svg class="icon" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="30" r="20" stroke="currentColor" stroke-width="10"/><path d="M10 90C14.3229 80 28.3751 65 50 65C71.6249 65 85.6771 80 90 90" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Bước 1 — Tạo tài khoản</h2>
+    <p class="desc">
+      Tài khoản ở đây hơi khác bình thường: <b>không có email, không có mật khẩu riêng</b> —
+      chỉ có 1 file. File đó vừa là "tên đăng nhập" vừa là "mật khẩu" của bạn.
+    </p>
     <ol class="howto">
-      <li>Bấm <b>"Tạo mã mới"</b> — máy tự tạo mã cho bạn, chỉ mất 1 giây.</li>
-      <li>Bấm <b>"Tải file lưu trữ"</b> và cất file đó thật kỹ (giống cất chìa khóa nhà) — mất file này là mất luôn, không lấy lại được.</li>
-      <li>Xong! Mã số của bạn hiện ra ở ô bên dưới, sang Bước 2.</li>
+      <li>Bấm <b>"Tạo tài khoản"</b> — máy tự tạo cho bạn, chỉ mất 1 giây.</li>
+      <li>Bấm <b>"Tải file tài khoản"</b> và cất file đó thật kỹ (giống cất chìa khóa nhà) — mất file này là mất luôn tài khoản, không lấy lại được.</li>
+      <li>Xong! Tài khoản của bạn hiện ra ở ô bên dưới, sang Bước 2.</li>
     </ol>
 
     <div class="row">
-      <button class="btn" id="btnGen">Tạo mã mới</button>
-      <button class="btn secondary" id="btnDownloadSeed" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50V90H90V50M50 70V10M30 50L50 70L70 50" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Tải file lưu trữ (.txt)</button>
+      <button class="btn" id="btnGen">Tạo tài khoản</button>
+      <button class="btn secondary" id="btnDownloadSeed" disabled><svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 50V90H90V50M50 70V10M30 50L50 70L70 50" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>Tải file tài khoản (.txt)</button>
     </div>
 
     <div class="field" style="margin-top:14px">
-      <label>Đã có file lưu trước đó? Dán nội dung vào đây để dùng lại</label>
+      <label>Đã có tài khoản rồi? Dán nội dung file đã tải vào đây để đăng nhập lại</label>
       <div class="row">
-        <input id="restoreInput" placeholder="Dán nội dung file đã tải..." />
-        <button class="btn secondary" id="btnRestore">Dùng lại mã cũ</button>
+        <input id="restoreInput" placeholder="Dán nội dung file tài khoản..." />
+        <button class="btn secondary" id="btnRestore">Đăng nhập lại</button>
       </div>
     </div>
 
     <div class="field" style="margin-top:14px">
-      <label>Mã số của bạn</label>
-      <div class="mono" id="didBox">Chưa có — bấm "Tạo mã mới" ở trên</div>
+      <label>Tài khoản của bạn</label>
+      <div class="mono" id="didBox">Chưa có — bấm "Tạo tài khoản" ở trên</div>
     </div>
 
     <div id="seedWarning" class="note warn" style="display:none">
       <svg class="icon" viewBox="0 0 100 100" fill="none"><path d="M10 55.0684C10 32.977 27.9086 15.0684 50 15.0684C64.8057 15.0684 77.7325 23.1123 84.6487 35.0684C88.0521 40.9518 90 47.7826 90 55.0684C90 77.1597 72.0914 95.0684 50 95.0684C27.9086 95.0684 10 77.1597 10 55.0684Z" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 35.0692L50 60.1016" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="75.0859" r="5" fill="currentColor"/></svg>
-      <b>Nhớ tải file về và cất kỹ!</b> Mất file = mất luôn mã số này, không ai giúp lấy lại được. Cho người khác thấy nội dung file này = họ giả làm bạn được. Đừng dán nội dung file vào chat với ai, kể cả AI.
+      <b>Nhớ tải file về và cất kỹ!</b> Mất file = mất luôn tài khoản này, không có "quên mật khẩu" để lấy lại. Cho người khác thấy nội dung file này = họ đăng nhập được vào tài khoản của bạn. Đừng dán nội dung file vào chat với ai, kể cả AI.
     </div>
   </section>
 
@@ -368,7 +371,7 @@
   function $(id) { return document.getElementById(id); }
 
   function refreshDidUi() {
-    $("didBox").textContent = state.did || 'Chưa có DID — bấm "Tạo DID mới"';
+    $("didBox").textContent = state.did || 'Chưa có — bấm "Tạo tài khoản" ở trên';
     var ready = !!state.did;
     $("btnDownloadSeed").disabled = !ready;
     $("btnPublishNote").disabled = !ready;
