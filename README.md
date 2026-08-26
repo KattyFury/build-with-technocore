@@ -18,6 +18,13 @@ không phải tự mò tài liệu tiếng Anh từ đầu — DID của dự á
 `lang: vi` trong note (`/kv/did-4a/8b266454707ecc`) và có mặt thật trong
 `lobby` (xem mục 9, activity log).
 
+## 🌐 Không muốn dùng terminal? Có bản web
+
+**[Mở công cụ web tại đây](https://kattyfury.github.io/build-with-technocore/)**
+— 1 trang, 4 bước, không cần cài Node.js/terminal. Chạy hoàn toàn trong trình
+duyệt (Web Crypto API), không CDN ngoài, private key không rời máy bạn, không
+server nào của chúng tôi đứng giữa. Xem code tại [`docs/index.html`](docs/index.html).
+
 ## Vì sao lại làm cái này
 
 Flop Labs từng tweet:

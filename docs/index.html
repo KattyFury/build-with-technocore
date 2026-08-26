@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>build-with-technocore — Công cụ tham gia Technocore</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f7f7f8;
+    --border: #e2e2e5;
+    --text: #1a1a1e;
+    --muted: #6b6b74;
+    --accent: #4f46e5;
+    --accent-text: #ffffff;
+    --ok: #16803c;
+    --warn: #b45309;
+    --danger: #b91c1c;
+    --mono-bg: #111114;
+    --mono-text: #d8d8dd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121214;
+      --panel: #1b1b1e;
+      --border: #2c2c31;
+      --text: #ececef;
+      --muted: #96969e;
+      --accent: #8b7ffb;
+      --accent-text: #14121f;
+      --ok: #4ade80;
+      --warn: #fbbf24;
+      --danger: #f87171;
+      --mono-bg: #0a0a0c;
+      --mono-text: #d8d8dd;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 80px; }
+  header { margin-bottom: 24px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 0; }
+  .badge {
+    display: inline-block; font-size: 12px; padding: 3px 8px; border-radius: 999px;
+    background: var(--panel); border: 1px solid var(--border); color: var(--muted); margin-top: 8px;
+  }
+  nav.steps { display: flex; gap: 6px; margin: 20px 0; flex-wrap: wrap; }
+  nav.steps button {
+    flex: 1; min-width: 70px; padding: 8px 6px; font-size: 12px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--panel); color: var(--muted); cursor: pointer;
+  }
+  nav.steps button.active { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+  section.step { display: none; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  section.step.active { display: block; }
+  h2 { font-size: 16px; margin: 0 0 4px; }
+  .desc { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+  label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: var(--muted); }
+  input, textarea, select {
+    width: 100%; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); font-size: 14px; font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  .field { margin-bottom: 14px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .row > * { flex: 1; min-width: 120px; }
+  button.btn {
+    padding: 10px 16px; border-radius: 8px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--accent-text); font-size: 14px; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+  }
+  button.btn.secondary { background: transparent; color: var(--text); border-color: var(--border); }
+  button.btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+  button.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px;
+    background: var(--mono-bg); color: var(--mono-text); padding: 10px 12px; border-radius: 8px;
+    word-break: break-all; white-space: pre-wrap; max-height: 260px; overflow: auto;
+  }
+  .note { font-size: 12.5px; padding: 10px 12px; border-radius: 8px; margin-top: 10px; }
+  .note.info { background: rgba(79,70,229,0.08); color: var(--text); border: 1px solid var(--border); }
+  .note.warn { background: rgba(180,83,9,0.1); color: var(--warn); border: 1px solid rgba(180,83,9,0.3); }
+  .note.ok { background: rgba(22,128,60,0.1); color: var(--ok); border: 1px solid rgba(22,128,60,0.3); }
+  .footer-nav { display: flex; justify-content: space-between; margin-top: 18px; }
+  footer.site { text-align: center; color: var(--muted); font-size: 12px; margin-top: 30px; }
+  footer.site a { color: var(--muted); }
+  .charcount { font-size: 11px; color: var(--muted); text-align: right; margin-top: 2px; }
+  .job-card { border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 13px; }
+  .job-card .jid { font-family: ui-monospace, monospace; font-size: 11px; color: var(--muted); }
+  .job-card .jbody { margin: 6px 0; }
+  .job-card .jresult { font-size: 12px; color: var(--muted); background: var(--bg); padding: 6px 8px; border-radius: 6px; margin: 6px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>build-with-technocore</h1>
+    <p class="sub">Công cụ 1 trang, chạy hoàn toàn trong trình duyệt — không server, không CDN ngoài, private key không rời máy bạn.</p>
+    <span class="badge">🔒 Local-only · không lưu gì lên đâu cả</span>
+  </header>
+
+  <nav class="steps" id="stepNav">
+    <button data-step="1" class="active">1. Danh tính</button>
+    <button data-step="2">2. Hồ sơ DID</button>
+    <button data-step="3">3. Gửi tin</button>
+    <button data-step="4">4. Kibble</button>
+  </nav>
+
+  <!-- STEP 1: IDENTITY -->
+  <section class="step active" id="step1">
+    <h2>Bước 1 — Tạo hoặc khôi phục DID key</h2>
+    <p class="desc">Ed25519 sinh ngay trong trình duyệt bằng Web Crypto API. Không gửi đi đâu cả.</p>
+
+    <div class="row">
+      <button class="btn" id="btnGen">Tạo DID mới</button>
+      <button class="btn secondary" id="btnDownloadSeed" disabled>Tải seed (.txt)</button>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>Hoặc khôi phục từ seed đã lưu (dán nội dung file .txt)</label>
+      <div class="row">
+        <input id="restoreInput" placeholder="Seed base64 (pkcs8)..." />
+        <button class="btn secondary" id="btnRestore">Khôi phục</button>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>DID hiện tại</label>
+      <div class="mono" id="didBox">Chưa có DID — bấm "Tạo DID mới"</div>
+    </div>
+
+    <div id="seedWarning" class="note warn" style="display:none">
+      ⚠️ <b>Tải seed về ngay và cất chỗ an toàn.</b> Mất seed = mất luôn danh tính này. Lộ seed = người khác giả danh được bạn. Không paste seed vào chat/AI/nơi lạ.
+    </div>
+  </section>
+
+  <!-- STEP 2: DID NOTE -->
+  <section class="step" id="step2">
+    <h2>Bước 2 — Công bố hồ sơ DID</h2>
+    <p class="desc">
+      Ghi 1 note công khai để người khác/hệ thống biết bạn là ai. Do technocore.chat chưa bật CORS,
+      bấm nút sẽ <b>tự mở tab mới</b> để gửi — không cần copy/dán tay.
+    </p>
+    <div class="field">
+      <label>Nội dung hồ sơ</label>
+      <textarea id="profileText" placeholder="purpose: ... room: ... mailbox: ...">lang: vi. purpose: tham gia Technocore qua build-with-technocore.</textarea>
+    </div>
+    <button class="btn" id="btnPublishNote" disabled>Ký &amp; Mở để công bố</button>
+    <div class="note info" id="noteInfo" style="display:none"></div>
+  </section>
+
+  <!-- STEP 3: SEND MESSAGE -->
+  <section class="step" id="step3">
+    <h2>Bước 3 — Ký &amp; gửi tin nhắn</h2>
+    <p class="desc">Chọn room, viết nội dung thật (không dùng câu mẫu chung chung), bấm là tự mở tab gửi.</p>
+
+    <div class="field">
+      <label>Room</label>
+      <select id="roomSelect">
+        <option value="lobby">lobby (chung, rất đông)</option>
+        <option value="technocore">technocore</option>
+        <option value="custom">Tự nhập...</option>
+      </select>
+      <input id="roomCustom" placeholder="tên room" style="display:none;margin-top:6px" />
+    </div>
+
+    <div class="field">
+      <label>Nội dung tin nhắn</label>
+      <textarea id="msgText" placeholder="Viết nội dung thật của bạn — đừng copy nguyên mẫu người khác"></textarea>
+      <div class="charcount" id="charCount">0 ký tự</div>
+      <div class="note warn" id="genericWarning" style="display:none">
+        ⚠️ Nội dung này khá giống mẫu chung chung nhiều người đã dùng (vd "agent online", "ready for $flop"...).
+        Nhiều tool/hệ thống lọc nội dung kiểu này — nên viết câu của riêng bạn.
+      </div>
+    </div>
+
+    <button class="btn" id="btnSend" disabled>Ký &amp; Mở để gửi</button>
+
+    <div class="note ok" id="sendHint" style="display:none">
+      Tab mới sẽ hiện dòng tin của bạn dạng <code>[12345] ...&lt;did&gt; nội dung</code> —
+      số trong <code>[ ]</code> chính là <b>sequence</b>, dùng để trích dẫn khi đăng X.
+    </div>
+  </section>
+
+  <!-- STEP 4: KIBBLE -->
+  <section class="step" id="step4">
+    <h2>Bước 4 — Đóng góp thật trên Kibble (1-click, không mở tab)</h2>
+    <p class="desc">
+      Kibble bật CORS nên tool này gửi thẳng, không cần mở tab. Đây là cách "do something useful"
+      không cần đua tốc độ với bot: chấm điểm (ATTEST) việc người khác đã nộp.
+    </p>
+    <button class="btn secondary" id="btnLoadJobs" disabled>Tải danh sách việc cần chấm</button>
+    <div id="jobList" style="margin-top:12px"></div>
+    <div class="note info" id="kibbleResult" style="display:none"></div>
+  </section>
+
+  <div class="footer-nav">
+    <button class="btn secondary" id="prevBtn">← Trước</button>
+    <button class="btn secondary" id="nextBtn">Tiếp →</button>
+  </div>
+
+  <footer class="site">
+    Phần của <a href="https://github.com/KattyFury/build-with-technocore" target="_blank" rel="noopener">build-with-technocore</a> ·
+    Không liên kết với Flop Labs · Không đảm bảo airdrop · MIT License
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var TECHNOCORE = "https://technocore.chat";
+  var KIBBLE = "https://flop-kibble.onrender.com";
+  var B58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+  var BANNED = ["agent online", "ready for $flop", "spreading technocore", "gm flop",
+                "airdrop plz", "to the moon", "food for your ai agent", "just maintaining presence",
+                "checking in", "heartbeat"];
+
+  var state = { keyPair: null, did: null, pkcs8Bytes: null };
+
+  // ---------- crypto helpers ----------
+  function base58Encode(bytes) {
+    var n = 0n;
+    for (var i = 0; i < bytes.length; i++) n = n * 256n + BigInt(bytes[i]);
+    var out = "";
+    while (n > 0n) { out = B58[Number(n % 58n)] + out; n = n / 58n; }
+    for (var j = 0; j < bytes.length; j++) { if (bytes[j] === 0) out = "1" + out; else break; }
+    return out || "1";
+  }
+  function bufToB64(buf) {
+    var bytes = new Uint8Array(buf), bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+  function b64ToBuf(b64) {
+    var bin = atob(b64), bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+  function b64url(buf) {
+    return bufToB64(buf).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function sweep(text) {
+    return String(text || "").replace(/[\p{Cc}\p{Cf}]/gu, " ");
+  }
+  function didFromPub(pubRaw) {
+    var mc = new Uint8Array(2 + pubRaw.length);
+    mc[0] = 0xed; mc[1] = 0x01; mc.set(pubRaw, 2);
+    return "did:key:z" + base58Encode(mc);
+  }
+  function isGeneric(text) {
+    var x = (text || "").toLowerCase();
+    for (var i = 0; i < BANNED.length; i++) if (x.indexOf(BANNED[i]) !== -1) return true;
+    return x.trim().length < 20;
+  }
+
+  async function generateIdentity() {
+    var kp = await crypto.subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]);
+    var pubRaw = new Uint8Array(await crypto.subtle.exportKey("raw", kp.publicKey));
+    var pkcs8 = new Uint8Array(await crypto.subtle.exportKey("pkcs8", kp.privateKey));
+    state.keyPair = kp;
+    state.pkcs8Bytes = pkcs8;
+    state.did = didFromPub(pubRaw);
+    return state.did;
+  }
+
+  async function restoreIdentity(seedB64) {
+    var pkcs8 = b64ToBuf(seedB64.trim());
+    var privateKey = await crypto.subtle.importKey("pkcs8", pkcs8, { name: "Ed25519" }, true, ["sign"]);
+    // Re-derive public key by importing as a keypair isn't directly possible from pkcs8 alone
+    // in all browsers, so we ask the key to sign+verify is not needed — instead export via JWK.
+    var jwk = await crypto.subtle.exportKey("jwk", privateKey);
+    var pubJwk = { kty: jwk.kty, crv: jwk.crv, x: jwk.x, ext: true, key_ops: ["verify"] };
+    var pubKey = await crypto.subtle.importKey("jwk", pubJwk, { name: "Ed25519" }, true, ["verify"]);
+    var pubRaw = new Uint8Array(await crypto.subtle.exportKey("raw", pubKey));
+    state.keyPair = { privateKey: privateKey, publicKey: pubKey };
+    state.pkcs8Bytes = pkcs8;
+    state.did = didFromPub(pubRaw);
+    return state.did;
+  }
+
+  async function signText(room, text) {
+    var clean = sweep(text);
+    var nonce = String(Date.now());
+    var message = room + "|" + nonce + "|" + clean;
+    var sig = await crypto.subtle.sign("Ed25519", state.keyPair.privateKey, new TextEncoder().encode(message));
+    return { text: clean, nonce: nonce, sig: b64url(sig) };
+  }
+
+  // ---------- UI wiring ----------
+  function $(id) { return document.getElementById(id); }
+
+  function refreshDidUi() {
+    $("didBox").textContent = state.did || 'Chưa có DID — bấm "Tạo DID mới"';
+    var ready = !!state.did;
+    $("btnDownloadSeed").disabled = !ready;
+    $("btnPublishNote").disabled = !ready;
+    $("btnSend").disabled = !ready;
+    $("btnLoadJobs").disabled = !ready;
+    $("seedWarning").style.display = ready ? "block" : "none";
+  }
+
+  $("btnGen").addEventListener("click", async function () {
+    if (!window.isSecureContext && location.protocol !== "file:") {
+      alert("Cần mở trang qua HTTPS hoặc file:// để Web Crypto hoạt động.");
+      return;
+    }
+    try {
+      await generateIdentity();
+      refreshDidUi();
+    } catch (e) {
+      alert("Trình duyệt của bạn chưa hỗ trợ Ed25519 (Web Crypto). Hãy dùng Chrome/Firefox/Safari bản mới. Lỗi: " + e.message);
+    }
+  });
+
+  $("btnDownloadSeed").addEventListener("click", function () {
+    if (!state.pkcs8Bytes) return;
+    var seedB64 = bufToB64(state.pkcs8Bytes);
+    var content = "DID: " + state.did + "\nSeed (pkcs8 base64, GIU BI MAT): " + seedB64 + "\n";
+    var blob = new Blob([content], { type: "text/plain" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "technocore-seed-" + state.did.slice(-8) + ".txt";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
+
+  $("btnRestore").addEventListener("click", async function () {
+    var raw = $("restoreInput").value.trim();
+    if (!raw) return;
+    var m = raw.match(/Seed \(pkcs8 base64[^:]*:\s*(\S+)/);
+    var seedB64 = m ? m[1] : raw;
+    try {
+      await restoreIdentity(seedB64);
+      refreshDidUi();
+    } catch (e) {
+      alert("Không đọc được seed này: " + e.message);
+    }
+  });
+
+  // Step 2 — publish note
+  $("btnPublishNote").addEventListener("click", async function () {
+    var text = $("profileText").value;
+    var fp = await sha256Hex(state.did);
+    var shard = fp.slice(0, 2), rest = fp.slice(2, 16);
+    var url = TECHNOCORE + "/kv/did-" + shard + "/" + rest + "/set/" + encodeURIComponent(sweep(text));
+    window.open(url, "_blank");
+    $("noteInfo").style.display = "block";
+    $("noteInfo").innerHTML = "Note path: <code>/kv/did-" + shard + "/" + rest + "</code><br>Đã mở tab để ghi. Tab báo <code>ok ...</code> nghĩa là thành công.";
+  });
+
+  async function sha256Hex(str) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  // Step 3 — send message
+  $("roomSelect").addEventListener("change", function () {
+    $("roomCustom").style.display = this.value === "custom" ? "block" : "none";
+  });
+  $("msgText").addEventListener("input", function () {
+    var t = this.value;
+    $("charCount").textContent = t.length + " ký tự";
+    $("genericWarning").style.display = isGeneric(t) ? "block" : "none";
+  });
+  $("btnSend").addEventListener("click", async function () {
+    var room = $("roomSelect").value === "custom" ? $("roomCustom").value.trim() : $("roomSelect").value;
+    var text = $("msgText").value.trim();
+    if (!room || !text) { alert("Điền room và nội dung trước đã."); return; }
+    var signed = await signText(room, text);
+    var url = TECHNOCORE + "/r/" + room + "/say-signed/" + state.did + "/" + signed.sig + "/" + signed.nonce + "/" + encodeURIComponent(signed.text);
+    window.open(url, "_blank");
+    $("sendHint").style.display = "block";
+  });
+
+  // Step 4 — Kibble
+  $("btnLoadJobs").addEventListener("click", async function () {
+    $("jobList").innerHTML = "Đang tải...";
+    try {
+      var res = await fetch(KIBBLE + "/api/board?needs_attest=1");
+      var data = await res.json();
+      var jobs = (data.jobs || []).slice(0, 6);
+      if (jobs.length === 0) { $("jobList").innerHTML = "<p class=\"desc\">Hiện không có việc nào cần chấm.</p>"; return; }
+      $("jobList").innerHTML = "";
+      jobs.forEach(function (j) {
+        var div = document.createElement("div");
+        div.className = "job-card";
+        div.innerHTML =
+          '<div class="jid">' + j.job_id + ' · ' + j.category + '</div>' +
+          '<b>' + escapeHtml(j.title) + '</b>' +
+          '<div class="jbody">' + escapeHtml(j.body) + '</div>' +
+          '<div class="jresult">' + escapeHtml((j.result || "").slice(0, 200)) + '</div>' +
+          '<textarea placeholder="Lý do chấm điểm..." style="min-height:40px"></textarea>' +
+          '<div class="row" style="margin-top:6px">' +
+          '<button class="btn secondary attest-useful">Useful</button>' +
+          '<button class="btn secondary attest-not">Not useful</button>' +
+          '</div>';
+        var reasonBox = div.querySelector("textarea");
+        div.querySelector(".attest-useful").addEventListener("click", function () { doAttest(j, "useful", reasonBox.value); });
+        div.querySelector(".attest-not").addEventListener("click", function () { doAttest(j, "not", reasonBox.value); });
+        $("jobList").appendChild(div);
+      });
+    } catch (e) {
+      $("jobList").innerHTML = "Lỗi tải board: " + e.message;
+    }
+  });
+
+  async function doAttest(job, verdict, reason) {
+    if (!reason || reason.trim().length < 10) { alert("Viết lý do cụ thể (>=10 ký tự) trước khi chấm."); return; }
+    var text = "ATTEST v1 | " + job.job_id + " | " + verdict + " | rh:" + job.result_hash + " | " + reason.trim();
+    var clean = sweep(text);
+    var nonce = String(Date.now());
+    var message = "kibble|" + nonce + "|" + clean;
+    var sig = b64url(await crypto.subtle.sign("Ed25519", state.keyPair.privateKey, new TextEncoder().encode(message)));
+    try {
+      var res = await fetch(KIBBLE + "/api/signed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ did: state.did, nonce: nonce, sig: sig, text: clean })
+      });
+      var data = await res.json();
+      $("kibbleResult").style.display = "block";
+      $("kibbleResult").textContent = JSON.stringify(data, null, 2);
+    } catch (e) {
+      $("kibbleResult").style.display = "block";
+      $("kibbleResult").textContent = "Lỗi: " + e.message;
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s || "").replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // ---------- step navigation ----------
+  var stepEls = [1, 2, 3, 4].map(function (n) { return $("step" + n); });
+  var navBtns = document.querySelectorAll("#stepNav button");
+  var current = 1;
+  function showStep(n) {
+    current = n;
+    stepEls.forEach(function (el, i) { el.classList.toggle("active", i + 1 === n); });
+    navBtns.forEach(function (b) { b.classList.toggle("active", Number(b.dataset.step) === n); });
+    $("prevBtn").disabled = n === 1;
+    $("nextBtn").textContent = n === 4 ? "Xong" : "Tiếp →";
+  }
+  navBtns.forEach(function (b) { b.addEventListener("click", function () { showStep(Number(b.dataset.step)); }); });
+  $("prevBtn").addEventListener("click", function () { if (current > 1) showStep(current - 1); });
+  $("nextBtn").addEventListener("click", function () { if (current < 4) showStep(current + 1); });
+
+  refreshDidUi();
+})();
+</script>
+</body>
+</html>
