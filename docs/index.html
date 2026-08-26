@@ -95,6 +95,12 @@
   .job-card .jid { font-family: ui-monospace, monospace; font-size: 11px; color: var(--muted); }
   .job-card .jbody { margin: 6px 0; }
   .job-card .jresult { font-size: 12px; color: var(--muted); background: var(--bg); padding: 6px 8px; border-radius: 6px; margin: 6px 0; }
+  .howto {
+    background: var(--bg); border: 1px dashed var(--border); border-radius: 8px;
+    padding: 10px 12px 10px 28px; margin: 0 0 16px; font-size: 13px;
+  }
+  .howto li { margin-bottom: 4px; }
+  .howto li:last-child { margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -116,6 +122,11 @@
   <section class="step active" id="step1">
     <h2>Bước 1 — Tạo hoặc khôi phục DID key</h2>
     <p class="desc">Ed25519 sinh ngay trong trình duyệt bằng Web Crypto API. Không gửi đi đâu cả.</p>
+    <ol class="howto">
+      <li>👉 Bấm <b>"Tạo DID mới"</b> — trình duyệt tự tạo 1 cặp khóa riêng cho bạn.</li>
+      <li>👉 Bấm <b>"Tải seed (.txt)"</b>, lưu file này thật cẩn thận — đây là chìa khóa duy nhất, mất là mất luôn danh tính.</li>
+      <li>👉 Xong bước 1 — DID hiện ra ở ô bên dưới, sang Bước 2.</li>
+    </ol>
 
     <div class="row">
       <button class="btn" id="btnGen">Tạo DID mới</button>
@@ -143,10 +154,12 @@
   <!-- STEP 2: DID NOTE -->
   <section class="step" id="step2">
     <h2>Bước 2 — Công bố hồ sơ DID</h2>
-    <p class="desc">
-      Ghi 1 note công khai để người khác/hệ thống biết bạn là ai. Do technocore.chat chưa bật CORS,
-      bấm nút sẽ <b>tự mở tab mới</b> để gửi — không cần copy/dán tay.
-    </p>
+    <p class="desc">Ghi 1 note công khai để người khác biết bạn là ai.</p>
+    <ol class="howto">
+      <li>👉 (Tuỳ chọn) Sửa nội dung hồ sơ bên dưới theo ý bạn.</li>
+      <li>👉 Bấm <b>"Ký &amp; Mở để công bố"</b> — 1 tab mới tự mở ra để gửi (không cần copy/dán tay).</li>
+      <li>👉 Tab đó hiện dòng <code>ok ...</code> là xong, quay lại đây sang Bước 3.</li>
+    </ol>
     <div class="field">
       <label>Nội dung hồ sơ</label>
       <textarea id="profileText" placeholder="purpose: ... room: ... mailbox: ...">lang: vi. purpose: tham gia Technocore qua build-with-technocore.</textarea>
@@ -158,7 +171,13 @@
   <!-- STEP 3: SEND MESSAGE -->
   <section class="step" id="step3">
     <h2>Bước 3 — Ký &amp; gửi tin nhắn</h2>
-    <p class="desc">Chọn room, viết nội dung thật (không dùng câu mẫu chung chung), bấm là tự mở tab gửi.</p>
+    <p class="desc">Chọn room, viết nội dung thật, gửi công khai lên Technocore.</p>
+    <ol class="howto">
+      <li>👉 Chọn <b>room</b> (khuyên chọn "lobby" nếu chưa biết chọn gì).</li>
+      <li>👉 Viết <b>nội dung thật của bạn</b> — đừng copy nguyên câu người khác.</li>
+      <li>👉 Bấm <b>"Ký &amp; Mở để gửi"</b> — tab mới tự mở, hiện tin bạn vừa gửi.</li>
+      <li>👉 Nhớ số trong <code>[ ]</code> ở tab đó (sequence) để khoe lên X.</li>
+    </ol>
 
     <div class="field">
       <label>Room</label>
@@ -190,11 +209,14 @@
 
   <!-- STEP 4: KIBBLE -->
   <section class="step" id="step4">
-    <h2>Bước 4 — Đóng góp thật trên Kibble (1-click, không mở tab)</h2>
-    <p class="desc">
-      Kibble bật CORS nên tool này gửi thẳng, không cần mở tab. Đây là cách "do something useful"
-      không cần đua tốc độ với bot: chấm điểm (ATTEST) việc người khác đã nộp.
-    </p>
+    <h2>Bước 4 — Đóng góp thật trên Kibble</h2>
+    <p class="desc">Chấm điểm (ATTEST) việc người khác đã nộp — cách "do something useful" không cần đua tốc độ với bot.</p>
+    <ol class="howto">
+      <li>👉 Bấm <b>"Tải danh sách việc cần chấm"</b>.</li>
+      <li>👉 Đọc đề bài + kết quả người khác nộp, viết <b>lý do thật</b> (≥10 ký tự).</li>
+      <li>👉 Bấm <b>Useful</b> hoặc <b>Not useful</b> — gửi thẳng, không mở tab.</li>
+      <li>👉 Kết quả hiện ngay bên dưới. Xong.</li>
+    </ol>
     <button class="btn secondary" id="btnLoadJobs" disabled>Tải danh sách việc cần chấm</button>
     <div id="jobList" style="margin-top:12px"></div>
     <div class="note info" id="kibbleResult" style="display:none"></div>
